@@ -1,57 +1,85 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import Faq from '../components/Faq.astro';
+import MapFacade from '../components/MapFacade.astro';
 import { business, notes } from '../data/business';
+const faqs = [
+  { q: 'Ke kantor mana saya bisa datang?', a: 'Kantor pusat di Jl. Cempaka Putih Tengah 27 No.14A, Jakarta Pusat. Layanan kemitraan Jambi — alamat dikonfirmasi via WA sebelum survei.' },
+  { q: 'Nomor darurat saat keberangkatan?', a: 'Simpan WA admin 0811-188-354 dan telp kantor (021) 4288-5027. Nomor muthowif dibagikan saat manasik.' },
+  { q: 'Jam berapa bisa konsultasi?', a: 'Konsultasi setiap hari via WhatsApp — gratis tanpa kewajiban mendaftar.' },
+];
 ---
-<BaseLayout title={`Konsultasi umroh Jambi & kemitraan — ${business.name}`} description="Kontak Multazam: WA admin 0811-188-354, telp (021) 4288-5027, email cs@multazam.co.id, Instagram @multazamutamaofficial." canonicalPath="/kontak" image="/images/multazam-umroh-series.jpg">
-  <section class="max-w-6xl mx-auto px-4 pt-12 w-full">
+<!-- Ref: Haramain agency — kontak 2 kantor + darurat + FAQ + facade peta -->
+<BaseLayout title={`Kontak 2 kantor & FAQ — ${business.name}`} description="Kontak Multazam: kantor pusat Cempaka Putih Jakarta (021) 4288-5027, layanan kemitraan Jambi via WA 0811-188-354, email cs@multazam.co.id." canonicalPath="/kontak" image="/images/multazam-umroh-series.jpg">
+  <section class="max-w-7xl mx-auto px-4 pt-12 md:pt-20 w-full">
     <p class="text-xs font-semibold uppercase tracking-widest text-amber-700">Kontak</p>
     <h1 class="mt-2 font-editorial text-4xl md:text-6xl leading-none font-bold max-w-[22ch]">Tanya dulu sepuasnya, daftar belakangan</h1>
   </section>
-  <section class="max-w-6xl mx-auto px-4 py-10 w-full">
+  <section class="max-w-7xl mx-auto px-4 py-10 md:py-12 w-full">
     <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
       <div class="md:col-span-5 reveal">
-        <div class="bg-white border border-amber-600/20 rounded-[2rem] p-8 md:p-10 h-full">
-          <h2 class="font-semibold text-lg tracking-tight">Kantor & layanan</h2>
-          <p class="mt-2 text-base text-gray-600">{business.address}</p>
-          <p class="mt-6 font-mono-num font-semibold">{business.phoneDisplay}</p>
-          <p class="mt-1 text-xs text-zinc-500">{business.phoneAlt}</p>
+        <div class="bg-stone-900 text-stone-100 rounded-[2rem] p-8 md:p-10 h-full">
+          <h2 class="font-editorial font-bold text-xl">Kantor 1 — Pusat Jakarta</h2>
+          <p class="mt-2 text-sm text-stone-300">Jl. Cempaka Putih Tengah 27 No.14A, Jakarta Pusat 10510</p>
+          <p class="mt-1 font-mono-num text-sm text-stone-300">Telp (021) 4288-5027 — cs@multazam.co.id</p>
+          <h2 class="mt-6 font-editorial font-bold text-xl">Kantor 2 — Layanan Jambi</h2>
+          <p class="mt-2 text-sm text-stone-300">Kemitraan/cabang Jambi — alamat dikonfirmasi via WA sebelum survei kantor.</p>
+          <p class="mt-4 font-mono-num font-semibold">{business.phoneDisplay}</p>
+          <p class="mt-1 text-xs text-stone-400">{business.phoneAlt}</p>
           <div class="mt-4 flex flex-col gap-2 text-sm">
-            <a href={business.instagram} target="_blank" rel="noopener" class="underline underline-offset-4">Instagram — @multazamutamaofficial</a>
-            <a href={business.website} target="_blank" rel="noopener" class="underline underline-offset-4">Situs resmi — multazam.co.id</a>
+            <a href={business.ctaUrl} target="_blank" rel="noopener" class="text-center bg-amber-600 text-white px-6 py-3 rounded-full font-medium min-h-[48px] grid place-items-center transition duration-300 hover:-translate-y-0.5 active:scale-[0.97]">{business.ctaLabel}</a>
+            <a href={business.instagram} target="_blank" rel="noopener" class="text-center border border-white/25 px-6 py-3 rounded-full min-h-[48px] grid place-items-center">Instagram — @multazamutamaofficial</a>
           </div>
-          {notes.map((n) => (<p class="mt-4 text-sm text-zinc-500 border-l-2 border-amber-600 pl-3">{n}</p>))}
+          {notes.map((n) => (<p class="mt-4 text-xs text-stone-400 border-l-2 border-amber-600 pl-3">{n}</p>))}
         </div>
       </div>
       <div class="md:col-span-7 reveal">
-        <form id="cons" class="bg-stone-900 text-stone-100 rounded-[2rem] p-8 md:p-10">
-          <h2 class="font-semibold text-lg tracking-tight">Form konsultasi → WhatsApp</h2>
+        <form id="cons" novalidate class="bg-white border border-amber-600/20 rounded-[2rem] p-8 md:p-10">
+          <h2 class="font-editorial font-bold text-xl">Form konsultasi → WhatsApp</h2>
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm mt-5">
-            <label class="flex flex-col gap-1.5">Nama<input required name="nama" placeholder="Nama kamu" class="rounded-2xl px-4 py-3 text-stone-900" /></label>
-            <label class="flex flex-col gap-1.5">Paket diminati<input name="paket" placeholder="cth: Kautsar 9 hari Des" class="rounded-2xl px-4 py-3 text-stone-900" /></label>
+            <div class="flex flex-col gap-1.5">
+              <label for="c-nama" class="font-medium">Nama</label>
+              <input id="c-nama" name="nama" placeholder="Nama kamu" autocomplete="name" class="field rounded-2xl px-4 py-3 border border-stone-300 focus:border-amber-600 focus:outline-none" aria-describedby="c-err-nama" />
+              <p id="c-err-nama" class="hidden text-xs text-red-700">Isi nama kamu.</p>
+            </div>
+            <div class="flex flex-col gap-1.5">
+              <label for="c-paket" class="font-medium">Paket diminati</label>
+              <input id="c-paket" name="paket" placeholder="cth: Kautsar 9 hari Des" class="field rounded-2xl px-4 py-3 border border-stone-300 focus:border-amber-600 focus:outline-none" />
+            </div>
           </div>
-          <label class="flex flex-col gap-1.5 text-sm mt-4">Pertanyaan<textarea required name="tanya" rows="3" placeholder="Tulis pertanyaan kamu" class="rounded-2xl px-4 py-3 text-stone-900"></textarea></label>
-          <p id="cons-err" class="hidden mt-3 text-sm text-red-300">Isi nama dan pertanyaan dulu.</p>
-          <button type="submit" class="mt-6 bg-white text-stone-900 px-7 py-3.5 rounded-full text-sm font-medium">Kirim konsultasi via WA</button>
+          <div class="flex flex-col gap-1.5 text-sm mt-4">
+            <label for="c-tanya" class="font-medium">Pertanyaan</label>
+            <textarea id="c-tanya" name="tanya" rows="3" placeholder="Tulis pertanyaan kamu" class="rounded-2xl px-4 py-3 border border-stone-300 focus:border-amber-600 focus:outline-none min-h-[48px]" aria-describedby="c-err-tanya"></textarea>
+            <p id="c-err-tanya" class="hidden text-xs text-red-700">Tulis pertanyaan kamu.</p>
+          </div>
+          <p id="cons-err" role="alert" class="hidden mt-3 text-sm text-red-700 bg-red-50 border border-red-200 rounded-2xl px-4 py-3">Isi nama dan pertanyaan dulu.</p>
+          <button type="submit" class="mt-6 bg-amber-600 text-white px-7 py-3.5 rounded-full text-sm font-medium min-h-[48px] transition duration-300 hover:-translate-y-0.5 active:scale-[0.97]">Kirim konsultasi via WA</button>
         </form>
-        <script>
-          const form = document.getElementById('cons') as HTMLFormElement | null;
-          form?.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const fd = new FormData(form);
-            const err = document.getElementById('cons-err');
-            if (!fd.get('nama') || !fd.get('tanya')) {
-              err?.classList.remove('hidden');
-              return;
-            }
-            err?.classList.add('hidden');
-            const msg = `Halo admin Multazam, saya ${fd.get('nama')}. Paket diminati: ${fd.get('paket') || '-'}. Pertanyaan: ${fd.get('tanya')}`;
-            window.open(`https://wa.me/62811188354?text=${encodeURIComponent(msg)}`, '_blank');
+        <script is:inline>
+          document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('cons');
+            form?.addEventListener('submit', (e) => {
+              e.preventDefault();
+              const fd = new FormData(form);
+              const nama = String(fd.get('nama') || '').trim();
+              const tanya = String(fd.get('tanya') || '').trim();
+              const badNama = nama.length < 2;
+              const badTanya = tanya.length < 3;
+              document.getElementById('c-err-nama')?.classList.toggle('hidden', !badNama);
+              document.getElementById('c-err-tanya')?.classList.toggle('hidden', !badTanya);
+              document.getElementById('cons-err')?.classList.toggle('hidden', !(badNama || badTanya));
+              if (badNama || badTanya) return;
+              window.open('https://wa.me/62811188354?text=' + encodeURIComponent('Halo admin Multazam, saya ' + nama + '. Paket diminati: ' + (String(fd.get('paket') || '-')) + '. Pertanyaan: ' + tanya), '_blank');
+            });
           });
         </script>
-        <div class="mt-6 rounded-[2rem] overflow-hidden border border-amber-600/20 bg-stone-100 h-[320px]">
-          <iframe title="Peta area Kota Jambi" src={business.mapsEmbed} loading="lazy" class="w-full h-full"></iframe>
+        <div class="mt-6">
+          <MapFacade src={business.mapsEmbed} title="Peta area Kota Jambi" address="Area layanan Jambi — alamat kemitraan dikonfirmasi via WA." mapsUrl={business.mapsUrl} />
         </div>
-        <p class="mt-3 text-xs text-zinc-500">Peta area Kota Jambi — alamat kemitraan Jambi dikonfirmasi via WA.</p>
+        <div class="mt-6 bg-white border border-amber-600/20 rounded-[2rem] px-6 md:px-8 py-4">
+          <h2 class="font-editorial font-bold text-xl pt-4">FAQ kontak</h2>
+          <Faq items={faqs} />
+        </div>
       </div>
     </div>
   </section>

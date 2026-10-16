@@ -1,0 +1,22 @@
+---
+const syarat = [
+  { t: 'Paspor aktif', d: 'Masa berlaku umumnya min. 7 bulan sebelum keberangkatan.' },
+  { t: 'KTP + Kartu Keluarga', d: 'Fotokopi/scan jelas untuk registrasi Siskopatuh.' },
+  { t: 'Buku nikah', d: 'Bagi pasangan suami-istri yang berangkat bersama.' },
+  { t: 'Pas foto', d: 'Latar putih sesuai ketentuan visa — dipandu admin.' },
+  { t: 'Vaksin & kesehatan', d: 'Mengikuti aturan kesehatan terbaru — tanyakan syarat terkini via WA.' },
+  { t: 'Pelunasan & kwitansi', d: 'Jadwal pelunasan mengikuti paket; setiap bayar wajib kwitansi resmi PT.' },
+];
+---
+<!-- Ref: Haramain agency — checklist syarat dokumen -->
+<ul class="grid grid-cols-1 sm:grid-cols-2 gap-4 list-none">
+  {syarat.map((s, i) => (
+    <li class="bg-white border border-amber-600/20 rounded-[1.5rem] p-5 flex gap-4">
+      <span aria-hidden="true" class="shrink-0 grid place-items-center w-9 h-9 rounded-full bg-emerald-900 text-emerald-50 font-mono-num text-sm font-semibold">✓</span>
+      <div>
+        <h3 class="font-semibold tracking-tight">{i + 1}. {s.t}</h3>
+        <p class="mt-1 text-sm text-stone-600">{s.d}</p>
+      </div>
+    </li>
+  ))}
+</ul>

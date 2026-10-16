@@ -1,0 +1,14 @@
+---
+interface Item { q: string; a: string }
+interface Props { items: Item[] }
+const { items } = Astro.props;
+---
+<!-- Ref: Haramain agency — FAQ -->
+<div class="divide-y divide-amber-600/10">
+  {items.map((f) => (
+    <details class="faq py-4 group">
+      <summary class="font-medium cursor-pointer list-none flex justify-between items-center gap-4 min-h-[48px]">{f.q}<span aria-hidden="true" class="shrink-0 grid place-items-center w-8 h-8 rounded-full border border-amber-600/30 text-amber-700 transition group-open:rotate-45">+</span></summary>
+      <div class="faq-body"><p class="overflow-hidden mt-1 text-sm text-stone-600 leading-relaxed max-w-[70ch]">{f.a}</p></div>
+    </details>
+  ))}
+</div>

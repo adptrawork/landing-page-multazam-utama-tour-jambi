@@ -3,12 +3,12 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import { business } from '../data/business';
 ---
 <BaseLayout title={`Legalitas PT Tisaga & izin 884/2019 — ${business.name}`} description="Legalitas Multazam Jambi: PT Tisaga Multazam Utama est. 15 Juli 1999, pendiri H. Imam Bashori, izin umroh 884/2019. Verifikasi di simpu Kemenag." canonicalPath="/legalitas" image="/images/multazam-muthawif-1.jpg" breadcrumbs={[{ name: 'Legalitas', path: '/legalitas' }]}>
-  <section class="max-w-6xl mx-auto px-4 pt-12 w-full">
+  <section class="max-w-7xl mx-auto px-4 pt-12 md:pt-20 w-full">
     <p class="text-xs font-semibold uppercase tracking-widest text-amber-700">Legalitas</p>
     <h1 class="mt-2 font-editorial text-4xl md:text-6xl leading-none font-bold max-w-[22ch]">Cek dulu berkasnya, baru titip amanah</h1>
     <p class="mt-4 text-base text-stone-600 max-w-[65ch]">Kami tampilkan data apa adanya. Tanpa klaim garansi visa — yang kami janjikan proses sesuai ketentuan dan pendampingan penuh.</p>
   </section>
-  <section class="max-w-6xl mx-auto px-4 py-10 w-full">
+  <section class="max-w-7xl mx-auto px-4 py-10 md:py-12 w-full">
     <div class="grid grid-cols-1 md:grid-cols-12 gap-5">
       <div class="md:col-span-7 reveal">
         <div class="spotlight bg-white border border-amber-600/20 rounded-[2rem] p-8 h-full">
@@ -31,7 +31,7 @@ import { business } from '../data/business';
       </div>
       <div class="md:col-span-12 reveal">
         <div class="spotlight bg-white border border-amber-600/20 rounded-[2rem] p-8 md:grid md:grid-cols-12 md:gap-6 md:items-center">
-          <img src="/images/multazam-muthawif-1.jpg" alt="Profil muthowif H. Permadi Rastiko, 9 tahun pengalaman membimbing jamaah" width="1200" height="375" loading="lazy" class="w-full md:col-span-5 h-56 object-cover rounded-3xl" />
+          <img src="/images/multazam-muthawif-1.jpg" alt="Profil muthowif H. Permadi Rastiko, 9 tahun pengalaman membimbing jamaah" width="1200" height="375" decoding="async" loading="lazy" class="w-full max-w-full md:col-span-5 h-56 object-cover rounded-3xl" />
           <div class="md:col-span-7 mt-4 md:mt-0">
             <h2 class="font-editorial font-bold text-2xl">Bimbingan muthowif berpengalaman</h2>
             <p class="mt-1 text-sm text-stone-600 max-w-[65ch]">Contoh: H. Permadi Rastiko — lulusan Wali Barokah Kediri, 9 tahun ilmu Al-Qur'an dan Al-Hadist, 5 tahun muthowif, komunikatif berbahasa Arab.</p>

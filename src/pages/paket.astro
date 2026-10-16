@@ -1,51 +1,42 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import PackageCard from '../components/PackageCard.astro';
 import { business, packages, departures } from '../data/business';
-const imgFile: Record<string, { f: string; w: number; h: number }> = {
-  ajyad: { f: 'multazam-paket-ajyad-des.jpg', w: 900, h: 1125 },
-  barokah: { f: 'multazam-paket-barokah.jpg', w: 900, h: 1125 },
-  sofwah: { f: 'multazam-paket-sofwah.jpg', w: 900, h: 1125 },
-  sohada: { f: 'multazam-paket-sohada.jpg', w: 900, h: 1125 },
-  royal: { f: 'multazam-paket-royal.jpg', w: 900, h: 1125 },
-  syawal: { f: 'multazam-paket-syawal.jpg', w: 648, h: 809 },
+const waPkg = (name: string, price: string) => `https://wa.me/${business.phone}?text=${encodeURIComponent(`Halo admin Multazam, saya mau tanya ${name} (${price}). Apakah seat masih ada?`)}`;
+const pkgsJson = JSON.stringify(packages.map((p) => ({ ...p, wa: waPkg(p.name, p.price) })));
+const imgFile: Record<string, string> = {
+  ajyad: 'multazam-paket-ajyad-des.jpg', barokah: 'multazam-paket-barokah.jpg', sofwah: 'multazam-paket-sofwah.jpg',
+  sohada: 'multazam-paket-sohada.jpg', royal: 'multazam-paket-royal.jpg', syawal: 'multazam-paket-syawal.jpg',
 };
-const order = ['sofwah', 'ajyad', 'barokah', 'sohada', 'royal', 'syawal'];
-const sortedPkgs = [...packages].sort((a, b) => order.indexOf(a.img) - order.indexOf(b.img));
+const imgJson = JSON.stringify(imgFile);
 ---
+<!-- Ref: Shakuro — paket cards + filter + skeleton; tabel keberangkatan -->
 <BaseLayout title={`15 jadwal umroh Kautsar–Syawal — ${business.name}`} description="Semua paket Multazam Jambi: Kautsar 9–10 hari, Barokah ekonomis 12 hari, Ramadhan, Lailatul Qadar, Syawal. Hotel Sofwah Tower, Ajyad Makareem, maskapai Saudia." canonicalPath="/paket" image="/images/multazam-paket-sofwah.jpg" breadcrumbs={[{ name: 'Paket', path: '/paket' }]}>
-  <section class="max-w-6xl mx-auto px-4 pt-12 w-full">
+  <section class="max-w-7xl mx-auto px-4 pt-12 md:pt-20 w-full">
     <p class="text-xs font-semibold uppercase tracking-widest text-amber-700">Paket — 6 banner resmi + 9 jadwal</p>
     <h1 class="mt-2 font-editorial text-4xl md:text-6xl leading-none font-bold max-w-[22ch]">Pilih bulan hijriahmu, kami siapkan seatnya</h1>
-    <p class="mt-4 text-base text-stone-600 max-w-[65ch]">Harga mulai (quad) dari multazam.co.id, maskapai Saudia. Kartu menumpuk saat digulir — tiap banner adalah materi resmi operator.</p>
-    <p class="mt-4 font-mono-num text-sm text-amber-700 seat-blink">Slot Desember menipis — konfirmasi seat via WA hari ini.</p>
-  </section>
-  <section class="max-w-6xl mx-auto px-4 py-10 w-full">
-    <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
-      {sortedPkgs.map((p, i) => (
-        <article class:list={['stack-card reveal', i % 2 === 0 ? 'md:col-span-7 md:col-start-1' : 'md:col-span-7 md:col-start-6']} style={`z-index:${i + 1};`}>
-          <div class="spotlight bg-white border border-amber-600/20 rounded-[2rem] p-6 md:flex md:gap-6">
-            <img src={`/images/${imgFile[p.img].f}`} alt={`Banner resmi ${p.name} hotel ${p.hotel}`} width={imgFile[p.img].w} height={imgFile[p.img].h} loading="lazy" class="w-full md:w-56 aspect-[4/5] object-cover object-top rounded-3xl shrink-0" />
-            <div class="mt-4 md:mt-0">
-              <p class="font-mono-num text-xs text-amber-700 font-semibold">PAKET 0{i + 1} / 06</p>
-              <h2 class="mt-1 font-editorial font-bold text-2xl leading-tight">{p.name}</h2>
-              <p class="text-sm text-stone-600">{p.hotel} — {p.status}</p>
-              <p class="font-mono-num font-semibold mt-2 text-amber-700">Mulai {p.price}</p>
-              <a href={`https://wa.me/${business.phone}?text=${encodeURIComponent(`Halo admin Multazam, saya mau tanya ${p.name} (${p.price}). Apakah seat masih ada?`)}`} target="_blank" rel="noopener" class="mt-4 inline-block bg-amber-600 text-white px-5 py-2.5 rounded-full text-xs font-medium transition duration-300 hover:-translate-y-0.5 active:scale-[0.97]">Tanya seat</a>
-            </div>
-          </div>
-          <p class="mt-2 text-xs text-stone-400 px-2">Sumber banner: multazam.co.id.</p>
-        </article>
-      ))}
+    <p class="mt-4 text-base text-stone-600 max-w-[65ch]">Harga mulai (quad) dari multazam.co.id. Banner adalah materi resmi operator.</p>
+    <div class="mt-6 max-w-md">
+      <label for="paket-filter" class="text-sm font-medium">Filter paket</label>
+      <input id="paket-filter" type="search" placeholder="cth: Kautsar, Barokah, Syawal…" autocomplete="off" class="field mt-1.5 w-full border border-stone-300 rounded-2xl px-4 py-3 text-sm focus:border-amber-600 focus:outline-none bg-white" />
     </div>
   </section>
-  <section class="max-w-6xl mx-auto px-4 py-8 w-full">
+  <section class="max-w-7xl mx-auto px-4 py-10 md:py-12 w-full">
+    <div id="paket-skeleton" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5" aria-hidden="true">
+      <div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div>
+    </div>
+    <p id="paket-empty" class="hidden text-sm text-stone-500 bg-white border border-amber-600/20 rounded-[1.5rem] p-6">Tidak ada paket yang cocok — coba kata kunci lain atau <a class="underline text-amber-700" href={business.ctaUrl} target="_blank" rel="noopener">konsultasi via WA</a>.</p>
+    <div id="paket-grid" class="hidden grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"></div>
+  </section>
+  <section class="max-w-7xl mx-auto px-4 py-8 w-full">
     <h2 class="font-editorial text-3xl font-bold">Sembilan keberangkatan lain</h2>
     <div class="mt-6 bg-white border border-amber-600/20 rounded-[2rem] overflow-hidden">
+      <p class="md:hidden text-xs text-stone-500 px-5 pt-4">← Geser tabel ke samping</p>
       <div class="overflow-x-auto">
         <table class="w-full text-sm min-w-[640px]">
-          <thead class="sticky top-16 bg-stone-900 text-stone-100">
+          <thead class="bg-stone-900 text-stone-100">
             <tr class="text-left">
-              <th class="py-3 px-5 font-medium">Program</th><th class="py-3 px-5 font-medium">Hotel</th><th class="py-3 px-5 font-medium">Harga mulai</th>
+              <th scope="col" class="py-3 px-5 font-medium">Program</th><th scope="col" class="py-3 px-5 font-medium">Hotel</th><th scope="col" class="py-3 px-5 font-medium">Harga mulai</th>
             </tr>
           </thead>
           <tbody class="divide-y divide-amber-600/10">
@@ -61,7 +52,23 @@ const sortedPkgs = [...packages].sort((a, b) => order.indexOf(a.img) - order.ind
       </div>
     </div>
     <div class="mt-10">
-      <a href={business.ctaUrl} target="_blank" rel="noopener" class="inline-block bg-amber-600 text-white px-8 py-3.5 rounded-full font-medium transition duration-300 hover:-translate-y-0.5 active:scale-[0.97]">Konsultasi Gratis via WA</a>
+      <a href={business.ctaUrl} target="_blank" rel="noopener" class="inline-flex items-center bg-amber-600 text-white px-8 py-3.5 rounded-full font-medium min-h-[48px] transition duration-300 hover:-translate-y-0.5 active:scale-[0.97]">Konsultasi Gratis via WA</a>
     </div>
   </section>
+  <script id="paket-data" type="application/json" set:html={pkgsJson} />
+  <script id="paket-imgs" type="application/json" set:html={imgJson} />
+  <script is:inline>
+    document.addEventListener('DOMContentLoaded', () => {
+      const pkgs = JSON.parse(document.getElementById('paket-data')?.textContent || '[]');
+      const imgs = JSON.parse(document.getElementById('paket-imgs')?.textContent || '{}');
+      const grid = document.getElementById('paket-grid');
+      const render = (q) => {
+        const list = pkgs.filter((p) => (p.name + ' ' + p.hotel).toLowerCase().includes(q.toLowerCase()));
+        if (grid) grid.innerHTML = list.map((p, i) => `<article class="bg-white border border-amber-600/20 rounded-[2rem] overflow-hidden flex flex-col"><img src="/images/${imgs[p.img] || 'multazam-umroh-series.jpg'}" alt="Banner resmi ${p.name}" width="900" height="1125" loading="lazy" decoding="async" class="w-full max-w-full aspect-[4/5] object-cover object-top" /><div class="p-6 flex flex-col gap-2 grow"><p class="font-mono-num text-xs font-semibold text-amber-700">PAKET 0${i + 1}</p><h2 class="font-editorial font-bold text-2xl leading-tight">${p.name}</h2><p class="text-sm text-stone-600">${p.hotel} — ${p.status}</p><p class="font-mono-num font-semibold text-amber-700">Mulai ${p.price}</p><a href="${p.wa}" target="_blank" rel="noopener" class="mt-auto pt-2 text-center bg-amber-600 text-white px-6 py-3 rounded-full text-sm font-medium min-h-[48px] grid place-items-center">Detail via WA</a></div></article>`).join('');
+        document.getElementById('paket-empty')?.classList.toggle('hidden', list.length > 0);
+      };
+      setTimeout(() => { document.getElementById('paket-skeleton')?.remove(); grid?.classList.remove('hidden'); render(''); }, 450);
+      document.getElementById('paket-filter')?.addEventListener('input', (e) => render(e.target.value ?? ''));
+    });
+  </script>
 </BaseLayout>

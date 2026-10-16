@@ -16,10 +16,10 @@ const active = (h: string) => (h === '/' ? path === '/' : path.startsWith(h));
 </head>
 <body class="bg-[#fdfbf6] text-stone-900 antialiased">
   <div class="border-b border-amber-600/20 bg-amber-600/[0.07] text-xs">
-    <p class="max-w-6xl mx-auto px-4 py-2 tracking-wide text-amber-800">Est. 1999 — {business.legalEntity} — Izin Umroh 884/2019</p>
+    <p class="max-w-7xl mx-auto px-4 py-2 tracking-wide text-amber-800">Est. 1999 — {business.legalEntity} — Izin Umroh 884/2019</p>
   </div>
   <header class="sticky top-0 z-40 bg-[#fdfbf6]/85 backdrop-blur-xl border-b border-amber-600/15">
-    <nav class="max-w-6xl mx-auto flex items-center justify-between px-4 py-3">
+    <nav class="max-w-7xl mx-auto flex items-center justify-between px-4 py-3" aria-label="Navigasi utama">
       <a href="/" class="flex items-center gap-2.5">
         <span class="grid place-items-center w-9 h-9 rounded-full border border-amber-600/40 text-amber-700 font-editorial font-bold text-lg leading-none">م</span>
         <span class="leading-tight"><span class="font-editorial font-bold text-lg block">Multazam Utama</span><span class="text-[11px] text-stone-500 tracking-wide">TOUR JAMBI — SEJAK 1999</span></span>
@@ -29,19 +29,26 @@ const active = (h: string) => (h === '/' ? path === '/' : path.startsWith(h));
           <a href={n.href} class:list={['transition hover:text-amber-700 hover:-translate-y-px', active(n.href) && 'text-amber-700 font-semibold underline underline-offset-8 decoration-amber-600 decoration-2']}>{n.label}</a>
         ))}
       </div>
-      <a href={business.ctaUrl} target="_blank" rel="noopener" class="bg-amber-600 text-white px-5 py-2.5 rounded-full text-sm font-medium transition duration-300 hover:-translate-y-0.5 active:scale-[0.97]" style="transition-timing-function:cubic-bezier(0.16,1,0.3,1)">{business.ctaLabel}</a>
-    </nav>
-    <nav class="md:hidden border-t border-amber-600/10">
-      <div class="max-w-6xl mx-auto flex gap-5 overflow-x-auto px-4 py-2.5 text-sm text-stone-600">
-        {navLinks.map((n) => (
-          <a href={n.href} class:list={['whitespace-nowrap transition hover:text-amber-700', active(n.href) && 'text-amber-700 font-semibold']}>{n.label}</a>
-        ))}
+      <div class="flex items-center gap-2">
+        <a href={business.ctaUrl} target="_blank" rel="noopener" class="hidden sm:inline-block bg-amber-600 text-white px-5 py-2.5 rounded-full text-sm font-medium transition duration-300 hover:-translate-y-0.5 active:scale-[0.97]" style="transition-timing-function:cubic-bezier(0.16,1,0.3,1)">{business.ctaLabel}</a>
+        <button id="menu-btn" type="button" class="md:hidden grid place-items-center w-12 h-12 rounded-full border border-amber-600/30 text-amber-700" aria-expanded="false" aria-controls="mobile-menu" aria-label="Buka menu navigasi">
+          <svg id="menu-ic-open" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16" /></svg>
+          <svg id="menu-ic-close" class="hidden" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18" /></svg>
+        </button>
       </div>
     </nav>
+    <div id="mobile-menu" class="hidden md:hidden border-t border-amber-600/10 bg-[#fdfbf6]">
+      <nav class="max-w-7xl mx-auto px-4 py-4 flex flex-col gap-1 text-base" aria-label="Navigasi seluler">
+        {navLinks.map((n) => (
+          <a href={n.href} class:list={['min-h-[48px] flex items-center px-3 rounded-2xl transition hover:bg-amber-600/5', active(n.href) && 'text-amber-700 font-semibold bg-amber-600/5']}>{n.label}</a>
+        ))}
+        <a href={business.ctaUrl} target="_blank" rel="noopener" class="mt-2 text-center bg-amber-600 text-white px-6 py-3 rounded-full text-sm font-semibold min-h-[48px] grid place-items-center">{business.ctaLabel}</a>
+      </nav>
+    </div>
   </header>
   <main><slot /></main>
   <footer class="mt-20 border-t border-amber-600/20 bg-white">
-    <div class="max-w-6xl mx-auto px-4 py-12 grid gap-8 md:grid-cols-12">
+    <div class="max-w-7xl mx-auto px-4 py-12 grid gap-8 md:grid-cols-12">
       <div class="md:col-span-7">
         <p class="font-arabic text-2xl text-amber-700" lang="ar">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</p>
         <p class="mt-2 font-editorial font-bold text-xl">{business.name}</p>
@@ -63,19 +70,20 @@ const active = (h: string) => (h === '/' ? path === '/' : path.startsWith(h));
       </div>
     </div>
   </footer>
-  <script>
-    (() => {
-      const cards = document.querySelectorAll('.spotlight');
-      const move = (e: Event) => {
-        const el = e.currentTarget as HTMLElement;
-        const r = el.getBoundingClientRect();
-        const m = e as MouseEvent;
-        el.style.setProperty('--mx', `${((m.clientX - r.left) / r.width) * 100}%`);
-        el.style.setProperty('--my', `${((m.clientY - r.top) / r.height) * 100}%`);
-      };
-      cards.forEach((c) => c.addEventListener('mousemove', move));
-      window.addEventListener('pagehide', () => cards.forEach((c) => c.removeEventListener('mousemove', move)), { once: true });
-    })();
+  <script is:inline>
+    document.addEventListener('DOMContentLoaded', () => {
+      const btn = document.getElementById('menu-btn');
+      const menu = document.getElementById('mobile-menu');
+      const icOpen = document.getElementById('menu-ic-open');
+      const icClose = document.getElementById('menu-ic-close');
+      btn?.addEventListener('click', () => {
+        const open = menu?.classList.toggle('hidden') === false;
+        btn.setAttribute('aria-expanded', String(open));
+        btn.setAttribute('aria-label', open ? 'Tutup menu navigasi' : 'Buka menu navigasi');
+        icOpen?.classList.toggle('hidden', open);
+        icClose?.classList.toggle('hidden', !open);
+      });
+    });
   </script>
 </body>
 </html>
