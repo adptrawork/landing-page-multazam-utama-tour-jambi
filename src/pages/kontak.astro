@@ -1,0 +1,58 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { business, notes } from '../data/business';
+---
+<BaseLayout title={`Kontak & konsultasi — ${business.name}`} description="Kontak Multazam: WA admin 0811-188-354, telp (021) 4288-5027, email cs@multazam.co.id, Instagram @multazamutamaofficial." canonicalPath="/kontak" image="/images/multazam-umroh-series.jpg">
+  <section class="max-w-7xl mx-auto px-4 pt-12 w-full">
+    <p class="text-sm font-medium text-teal-700">Kontak</p>
+    <h1 class="mt-2 text-4xl md:text-5xl tracking-tighter leading-none font-bold max-w-[20ch]">Konsultasi gratis, tanpa tekanan</h1>
+  </section>
+  <section class="max-w-7xl mx-auto px-4 py-10 w-full">
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+      <div class="md:col-span-5 reveal">
+        <div class="bg-white border border-slate-200/50 rounded-[2.5rem] p-8 md:p-10 h-full">
+          <h2 class="font-semibold text-lg tracking-tight">Kantor & layanan</h2>
+          <p class="mt-2 text-base text-gray-600">{business.address}</p>
+          <p class="mt-6 font-mono-num font-semibold">{business.phoneDisplay}</p>
+          <p class="mt-1 text-xs text-zinc-500">{business.phoneAlt}</p>
+          <div class="mt-4 flex flex-col gap-2 text-sm">
+            <a href={business.instagram} target="_blank" rel="noopener" class="underline underline-offset-4">Instagram — @multazamutamaofficial</a>
+            <a href={business.website} target="_blank" rel="noopener" class="underline underline-offset-4">Situs resmi — multazam.co.id</a>
+          </div>
+          {notes.map((n) => (<p class="mt-4 text-sm text-zinc-500 border-l-2 border-teal-700 pl-3">{n}</p>))}
+        </div>
+      </div>
+      <div class="md:col-span-7 reveal">
+        <form id="cons" class="bg-zinc-950 text-white rounded-[2.5rem] p-8 md:p-10">
+          <h2 class="font-semibold text-lg tracking-tight">Form konsultasi → WhatsApp</h2>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm mt-5">
+            <label class="flex flex-col gap-1.5">Nama<input required name="nama" placeholder="Nama kamu" class="rounded-2xl px-4 py-3 text-zinc-950" /></label>
+            <label class="flex flex-col gap-1.5">Paket diminati<input name="paket" placeholder="cth: Kautsar 9 hari Des" class="rounded-2xl px-4 py-3 text-zinc-950" /></label>
+          </div>
+          <label class="flex flex-col gap-1.5 text-sm mt-4">Pertanyaan<textarea required name="tanya" rows="3" placeholder="Tulis pertanyaan kamu" class="rounded-2xl px-4 py-3 text-zinc-950"></textarea></label>
+          <p id="cons-err" class="hidden mt-3 text-sm text-red-300">Isi nama dan pertanyaan dulu.</p>
+          <button type="submit" class="mt-6 bg-white text-zinc-950 px-7 py-3.5 rounded-full text-sm font-medium">Kirim konsultasi via WA</button>
+        </form>
+        <script>
+          const form = document.getElementById('cons') as HTMLFormElement | null;
+          form?.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const fd = new FormData(form);
+            const err = document.getElementById('cons-err');
+            if (!fd.get('nama') || !fd.get('tanya')) {
+              err?.classList.remove('hidden');
+              return;
+            }
+            err?.classList.add('hidden');
+            const msg = `Halo admin Multazam, saya ${fd.get('nama')}. Paket diminati: ${fd.get('paket') || '-'}. Pertanyaan: ${fd.get('tanya')}`;
+            window.open(`https://wa.me/62811188354?text=${encodeURIComponent(msg)}`, '_blank');
+          });
+        </script>
+        <div class="mt-6 rounded-[2.5rem] overflow-hidden border border-slate-200/50 bg-zinc-100 h-[320px]">
+          <iframe title="Peta area Kota Jambi" src={business.mapsEmbed} loading="lazy" class="w-full h-full"></iframe>
+        </div>
+        <p class="mt-3 text-xs text-zinc-500">Peta area Kota Jambi — alamat kemitraan Jambi dikonfirmasi via WA.</p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
