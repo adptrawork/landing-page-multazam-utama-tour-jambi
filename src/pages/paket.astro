@@ -1,8 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { business, packages, departures, hotels } from '../data/business';
-const badgeCls = (s: string) =>
-  s.includes('Terverifikasi') ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800';
+import { business, packages, departures } from '../data/business';
 const imgFile: Record<string, { f: string; w: number; h: number }> = {
   ajyad: { f: 'multazam-paket-ajyad-des.jpg', w: 900, h: 1125 },
   barokah: { f: 'multazam-paket-barokah.jpg', w: 900, h: 1125 },
@@ -14,64 +12,56 @@ const imgFile: Record<string, { f: string; w: number; h: number }> = {
 const order = ['sofwah', 'ajyad', 'barokah', 'sohada', 'royal', 'syawal'];
 const sortedPkgs = [...packages].sort((a, b) => order.indexOf(a.img) - order.indexOf(b.img));
 ---
-<BaseLayout title={`Paket umroh — ${business.name}`} description="Paket umroh Multazam: Kautsar 9–10 hari, Barokah Ekonomis 12 hari, Ramadhan, Syawal. Hotel Sofwah Tower, Ajyad Makareem, Sohada, Royal Majestic." canonicalPath="/paket" image="/images/multazam-paket-sofwah.jpg">
-  <section class="max-w-7xl mx-auto px-4 pt-12 w-full">
-    <p class="text-sm font-medium text-teal-700">Paket</p>
-    <h1 class="mt-2 text-4xl md:text-5xl tracking-tighter leading-none font-bold max-w-[20ch]">Paket umroh terverifikasi situs resmi</h1>
-    <p class="mt-4 text-base text-gray-600 max-w-[65ch]">Harga mulai (quad) dari situs resmi multazam.co.id, maskapai Saudia. Banner di bawah adalah materi resmi operator — harga dapat berubah mengikuti kurs.</p>
+<BaseLayout title={`15 jadwal umroh Kautsar–Syawal — ${business.name}`} description="Semua paket Multazam Jambi: Kautsar 9–10 hari, Barokah ekonomis 12 hari, Ramadhan, Lailatul Qadar, Syawal. Hotel Sofwah Tower, Ajyad Makareem, maskapai Saudia." canonicalPath="/paket" image="/images/multazam-paket-sofwah.jpg" breadcrumbs={[{ name: 'Paket', path: '/paket' }]}>
+  <section class="max-w-6xl mx-auto px-4 pt-12 w-full">
+    <p class="text-xs font-semibold uppercase tracking-widest text-amber-700">Paket — 6 banner resmi + 9 jadwal</p>
+    <h1 class="mt-2 font-editorial text-4xl md:text-6xl leading-none font-bold max-w-[22ch]">Pilih bulan hijriahmu, kami siapkan seatnya</h1>
+    <p class="mt-4 text-base text-stone-600 max-w-[65ch]">Harga mulai (quad) dari multazam.co.id, maskapai Saudia. Kartu menumpuk saat digulir — tiap banner adalah materi resmi operator.</p>
+    <p class="mt-4 font-mono-num text-sm text-amber-700 seat-blink">Slot Desember menipis — konfirmasi seat via WA hari ini.</p>
   </section>
-  <section class="max-w-7xl mx-auto px-4 py-10 w-full">
+  <section class="max-w-6xl mx-auto px-4 py-10 w-full">
     <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
       {sortedPkgs.map((p, i) => (
-        <article class:list={['reveal', i % 3 === 0 ? 'md:col-span-7' : 'md:col-span-5']}>
-          <div class="bg-white border border-slate-200/50 rounded-[2.5rem] p-6 md:p-8 h-full">
-            <img src={`/images/${imgFile[p.img].f}`} alt={`Banner resmi ${p.name} hotel ${p.hotel}`} width={imgFile[p.img].w} height={imgFile[p.img].h} loading="lazy" class="w-full aspect-[4/5] object-cover object-top rounded-3xl" />
-            <p class="mt-4 text-xs font-medium"><span class={`px-3 py-1.5 rounded-full ${badgeCls(p.status)}`}>{p.status}</span></p>
-            <h2 class="mt-2 font-semibold text-lg tracking-tight">{p.name}</h2>
-            <p class="text-sm text-gray-600">{p.hotel}</p>
-            <div class="mt-3 flex items-center justify-between">
-              <p class="font-mono-num font-semibold">Mulai {p.price}</p>
-              <a href={`https://wa.me/${business.phone}?text=${encodeURIComponent(`Halo admin Multazam, saya mau tanya ${p.name} (${p.price}). Apakah seat masih ada?`)}`} target="_blank" rel="noopener" class="bg-zinc-950 text-white px-5 py-2.5 rounded-full text-xs font-medium">Tanya seat</a>
+        <article class:list={['stack-card reveal', i % 2 === 0 ? 'md:col-span-7 md:col-start-1' : 'md:col-span-7 md:col-start-6']} style={`z-index:${i + 1};`}>
+          <div class="spotlight bg-white border border-amber-600/20 rounded-[2rem] p-6 md:flex md:gap-6">
+            <img src={`/images/${imgFile[p.img].f}`} alt={`Banner resmi ${p.name} hotel ${p.hotel}`} width={imgFile[p.img].w} height={imgFile[p.img].h} loading="lazy" class="w-full md:w-56 aspect-[4/5] object-cover object-top rounded-3xl shrink-0" />
+            <div class="mt-4 md:mt-0">
+              <p class="font-mono-num text-xs text-amber-700 font-semibold">PAKET 0{i + 1} / 06</p>
+              <h2 class="mt-1 font-editorial font-bold text-2xl leading-tight">{p.name}</h2>
+              <p class="text-sm text-stone-600">{p.hotel} — {p.status}</p>
+              <p class="font-mono-num font-semibold mt-2 text-amber-700">Mulai {p.price}</p>
+              <a href={`https://wa.me/${business.phone}?text=${encodeURIComponent(`Halo admin Multazam, saya mau tanya ${p.name} (${p.price}). Apakah seat masih ada?`)}`} target="_blank" rel="noopener" class="mt-4 inline-block bg-amber-600 text-white px-5 py-2.5 rounded-full text-xs font-medium transition duration-300 hover:-translate-y-0.5 active:scale-[0.97]">Tanya seat</a>
             </div>
           </div>
-          <p class="mt-3 text-xs text-zinc-400 px-2">Sumber banner: multazam.co.id — ganti foto asli.</p>
+          <p class="mt-2 text-xs text-stone-400 px-2">Sumber banner: multazam.co.id.</p>
         </article>
       ))}
     </div>
   </section>
-  <section class="max-w-7xl mx-auto px-4 py-8 w-full">
-    <h2 class="text-2xl md:text-3xl tracking-tighter font-bold">Keberangkatan lain</h2>
-    <div class="mt-6 bg-white border border-slate-200/50 rounded-[2.5rem] p-4 md:p-8 overflow-x-auto">
-      <table class="w-full text-sm min-w-[640px]">
-        <thead><tr class="text-left text-zinc-500 border-b border-zinc-200">
-          <th class="py-3 px-4 font-medium">Program</th><th class="py-3 px-4 font-medium">Hotel</th><th class="py-3 px-4 font-medium">Harga mulai</th>
-        </tr></thead>
-        <tbody class="divide-y divide-zinc-100">
-          {departures.map((d) => (
-            <tr class="hover:bg-zinc-50/70">
-              <td class="py-3 px-4 font-semibold">{d.name}</td>
-              <td class="py-3 px-4 text-gray-600">{d.hotel}</td>
-              <td class="py-3 px-4 font-mono-num font-semibold whitespace-nowrap">{d.price}</td>
+  <section class="max-w-6xl mx-auto px-4 py-8 w-full">
+    <h2 class="font-editorial text-3xl font-bold">Sembilan keberangkatan lain</h2>
+    <div class="mt-6 bg-white border border-amber-600/20 rounded-[2rem] overflow-hidden">
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm min-w-[640px]">
+          <thead class="sticky top-16 bg-stone-900 text-stone-100">
+            <tr class="text-left">
+              <th class="py-3 px-5 font-medium">Program</th><th class="py-3 px-5 font-medium">Hotel</th><th class="py-3 px-5 font-medium">Harga mulai</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody class="divide-y divide-amber-600/10">
+            {departures.map((d, i) => (
+              <tr class:list={['transition hover:bg-amber-600/5', i % 2 === 1 && 'bg-stone-100/70']}>
+                <td class="py-3 px-5 font-semibold">{d.name}</td>
+                <td class="py-3 px-5 text-stone-600">{d.hotel}</td>
+                <td class="py-3 px-5 font-mono-num font-semibold whitespace-nowrap text-amber-700">{d.price}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
-  </section>
-  <section class="max-w-7xl mx-auto px-4 py-8 w-full">
-    <h2 class="text-2xl md:text-3xl tracking-tighter font-bold">Hotel yang digunakan</h2>
-    <div class="mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-12 gap-6">
-      {hotels.map((h, i) => (
-        <div class:list={['reveal', i < 2 ? 'md:col-span-7 md:[&:nth-child(2)]:col-span-5' : i % 2 === 0 ? 'md:col-span-5' : 'md:col-span-7']}>
-          <div class="bg-white border border-slate-200/50 rounded-[2.5rem] p-8 h-full">
-            <h3 class="font-semibold text-lg tracking-tight">{h.name}</h3>
-            <p class="mt-1 text-sm text-gray-600">{h.desc}</p>
-          </div>
-        </div>
-      ))}
-    </div>
-    <div class="mt-10 md:pl-[12vw]">
-      <a href={business.ctaUrl} target="_blank" rel="noopener" class="inline-block bg-teal-700 text-white px-8 py-3.5 rounded-full font-medium">Konsultasi Gratis via WA</a>
+    <div class="mt-10">
+      <a href={business.ctaUrl} target="_blank" rel="noopener" class="inline-block bg-amber-600 text-white px-8 py-3.5 rounded-full font-medium transition duration-300 hover:-translate-y-0.5 active:scale-[0.97]">Konsultasi Gratis via WA</a>
     </div>
   </section>
 </BaseLayout>

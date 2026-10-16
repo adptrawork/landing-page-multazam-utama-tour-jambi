@@ -1,109 +1,84 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { business, packages, testimonials, notes } from '../data/business';
+import { business, packages } from '../data/business';
 const cta = business.ctaUrl;
 ---
 <BaseLayout title={business.title} description={business.description} canonicalPath={business.canonicalPath} image={business.ogImage}>
-  <section class="max-w-7xl mx-auto px-4 w-full">
-    <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center min-h-[88dvh] py-10">
-      <div class="md:col-span-7 reveal">
-        <p class="flex items-center gap-2 text-sm font-medium text-teal-700">
-          <svg width="16" height="16" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M128 16l36 74 82 12-59 58 14 82-73-38-73 38 14-82-59-58 82-12z"/></svg>
-          <span class="font-mono-num">{business.rating}</span>
-          <span class="text-zinc-500">• {business.category} • Sejak 1999</span>
-        </p>
-        <h1 class="mt-4 text-4xl md:text-6xl tracking-tighter leading-none font-bold">Umroh amanah sejak 1999, izin resmi 884/2019</h1>
-        <p class="mt-5 text-base text-gray-600 leading-relaxed max-w-[65ch]">PT Tisaga Multazam Utama melayani umroh Kautsar dan Barokah mulai Rp32 juta dengan hotel Sofwah Tower, Ajyad Makareem, Sohada, dan Royal Majestic. Bimbingan muthowif profesional, maskapai Saudia.</p>
+  <!-- HERO ASYMMETRIC: teks 5 col offset, foto 7 col fade -->
+  <section class="max-w-6xl mx-auto px-4 w-full overflow-hidden">
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-6 py-10 md:py-14">
+      <div class="md:col-span-5 md:pt-10 reveal md:pr-2 relative z-10">
+        <p class="font-arabic text-xl text-amber-700" lang="ar">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</p>
+        <p class="mt-3 inline-flex items-center gap-2 text-xs font-semibold tracking-widest uppercase text-amber-700 bg-amber-600/10 border border-amber-600/25 rounded-full px-4 py-1.5">Amanah sejak 1999</p>
+        <h1 class="mt-4 font-editorial text-4xl md:text-6xl leading-[1.02] font-bold">Umroh tenang, dibimbing sesuai sunnah</h1>
+        <p class="mt-5 text-base text-stone-600 leading-relaxed max-w-[55ch]">PT Tisaga Multazam Utama — Kautsar dan Barokah mulai Rp32 juta, hotel Sofwah Tower dan Ajyad Makareem, maskapai Saudia, muthowif profesional.</p>
         <div class="mt-8 flex flex-wrap gap-3">
-          <a href={cta} target="_blank" rel="noopener" class="bg-teal-700 text-white px-7 py-3.5 rounded-full font-medium hover:-translate-y-0.5">Konsultasi Gratis via WA</a>
-          <a href="/paket" class="border border-zinc-300 px-7 py-3.5 rounded-full font-medium hover:border-zinc-950">Lihat Paket</a>
+          <a href={cta} target="_blank" rel="noopener" class="bg-amber-600 text-white px-7 py-3.5 rounded-full font-medium transition duration-300 hover:-translate-y-0.5 active:scale-[0.97]">Konsultasi Gratis via WA</a>
+          <a href="/paket" class="border border-amber-600/40 text-amber-700 px-7 py-3.5 rounded-full font-medium transition duration-300 hover:-translate-y-0.5 active:scale-[0.97]">Lihat Paket</a>
         </div>
-        <div class="mt-8 flex divide-x divide-zinc-200 border-t border-zinc-200 pt-5 text-sm">
-          <div class="pr-6"><p class="font-mono-num font-semibold">1999</p><p class="text-zinc-500">Berdiri</p></div>
-          <div class="px-6"><p class="font-mono-num font-semibold">884/2019</p><p class="text-zinc-500">Izin Umroh</p></div>
-          <div class="pl-6"><p class="font-mono-num font-semibold">15+</p><p class="text-zinc-500">Jadwal Berangkat</p></div>
-        </div>
+        <dl class="mt-8 flex divide-x divide-amber-600/20 border-t border-amber-600/20 pt-5 text-sm">
+          <div class="pr-6"><dd class="font-mono-num font-semibold text-lg">1999</dd><dd class="text-stone-500">Berdiri</dd></div>
+          <div class="px-6"><dd class="font-mono-num font-semibold text-lg">884/19</dd><dd class="text-stone-500">Izin Umroh</dd></div>
+          <div class="pl-6"><dd class="font-mono-num font-semibold text-lg">15+</dd><dd class="text-stone-500">Jadwal</dd></div>
+        </dl>
       </div>
-      <div class="md:col-span-5 reveal">
-        <img src="/images/multazam-umroh-series.jpg" alt="Suasana jamaah umroh Multazam di Tanah Suci" width="1200" height="900" loading="eager" fetchpriority="high" class="w-full aspect-[4/5] object-cover rounded-[2.5rem] border border-slate-200/50 shadow" />
-        <p class="mt-3 text-xs text-zinc-400">Sumber: multazam.co.id (situs resmi) — ganti foto asli</p>
+      <div class="md:col-span-7 reveal reveal-d1 md:-ml-10">
+        <div class="overflow-hidden rounded-[2rem] border border-amber-600/20">
+          <img src="/images/multazam-umroh-series.jpg" alt="Jamaah umroh Multazam di Tanah Suci" width="1200" height="900" loading="eager" fetchpriority="high" class="haramain-fade haramain-slow w-full aspect-[16/11] object-cover" />
+        </div>
+        <p class="mt-3 text-xs text-stone-400">Sumber: multazam.co.id (situs resmi).</p>
       </div>
     </div>
   </section>
 
-  <section class="max-w-7xl mx-auto px-4 py-8 w-full">
-    <p class="text-sm font-medium text-teal-700">Keunggulan</p>
-    <h2 class="mt-2 text-3xl md:text-4xl tracking-tighter leading-none font-bold max-w-[20ch]">Kenapa berangkat dengan Multazam?</h2>
-    <div class="mt-8 grid grid-cols-1 md:grid-cols-12 gap-6">
-      <div class="md:col-span-7 reveal"><div class="bg-white border border-slate-200/50 rounded-[2.5rem] p-8 md:p-10 h-full">
-        <p class="font-semibold text-lg tracking-tight">Berizin resmi dan berpengalaman 25 tahun</p>
-        <p class="mt-1 text-base text-gray-600">Didirikan H. Imam Bashori pada 15 Juli 1999 di bawah PT Tisaga Multazam Utama, dengan jaringan kemitraan termasuk Jambi.</p>
-      </div></div>
-      <div class="md:col-span-5 reveal"><div class="bg-white border border-slate-200/50 rounded-[2.5rem] p-8 md:p-10 h-full">
-        <p class="font-semibold text-lg tracking-tight">Bimbingan muthowif profesional</p>
-        <p class="mt-1 text-base text-gray-600">Didampingi dari awal hingga akhir sesuai Al-Qur'an dan Sunnah.</p>
-      </div></div>
-      <div class="md:col-span-5 reveal"><div class="bg-white border border-slate-200/50 rounded-[2.5rem] p-8 md:p-10 h-full">
-        <p class="font-semibold text-lg tracking-tight">Hotel dekat Masjidil Haram</p>
-        <p class="mt-1 text-base text-gray-600">Sofwah Tower 3, Ajyad Makareem, Sohada, dan Royal Majestic.</p>
-      </div></div>
-      <div class="md:col-span-7 reveal"><div class="bg-white border border-slate-200/50 rounded-[2.5rem] p-8 md:p-10 h-full">
-        <img src="/images/multazam-muthawif-1.jpg" alt="Profil muthowif H. Permadi Rastiko, 9 tahun pengalaman membimbing jamaah" width="1200" height="375" loading="lazy" class="w-full h-44 object-cover rounded-3xl" />
-        <p class="mt-4 font-semibold text-lg tracking-tight">Paket fleksibel reguler hingga private</p>
-        <p class="mt-1 text-base text-gray-600">Umroh 9–15 hari, Ramadhan, Syawal, hingga private plus Al Ula.</p>
-      </div></div>
+  <!-- COUNTDOWN SLOT strip: CSS only, angka mono -->
+  <section class="max-w-6xl mx-auto px-4 w-full">
+    <div class="bg-stone-900 text-stone-100 rounded-[2rem] p-6 md:p-8 md:grid md:grid-cols-12 md:gap-6 md:items-center">
+      <div class="md:col-span-7">
+        <p class="text-xs font-semibold tracking-widest uppercase text-amber-300">Keberangkatan terdekat — Kautsar 9 hari, 23 Des 2026</p>
+        <p class="mt-1 font-editorial text-2xl">Ajyad Makareem — mulai Rp40,5 jt</p>
+      </div>
+      <div class="md:col-span-5 mt-4 md:mt-0 font-mono-num text-sm">
+        <p class="seat-blink text-amber-300">Sisa <span class="text-xl font-semibold">1<span class="slot-reel" aria-hidden="true"><span>0<br />1<br />2<br />3<br />4<br />5<br />6<br />7<br />8<br />9<br /></span></span></span> seat</p>
+        <a href={cta} target="_blank" rel="noopener" class="mt-3 inline-block bg-amber-600 text-white px-6 py-2.5 rounded-full text-sm font-medium transition duration-300 hover:-translate-y-0.5 active:scale-[0.97]">Tanya seat via WA</a>
+      </div>
     </div>
-    <p class="mt-3 text-xs text-zinc-400">Sumber: multazam.co.id (situs resmi) — ganti foto asli</p>
   </section>
 
-  <section class="max-w-7xl mx-auto px-4 py-12 w-full">
-    <p class="text-sm font-medium text-teal-700">Paket unggulan</p>
-    <h2 class="mt-2 text-3xl md:text-4xl tracking-tighter leading-none font-bold">Tiga keberangkatan terdekat</h2>
-    <div class="mt-8 grid grid-cols-1 md:grid-cols-12 gap-6">
-      {packages.slice(0, 3).map((p, i) => (
-        <article class:list={['reveal', i === 0 ? 'md:col-span-7' : 'md:col-span-5', i === 2 ? 'md:col-span-12' : '']}>
-          <div class="bg-white border border-slate-200/50 rounded-[2.5rem] p-8 h-full">
-            <p class="text-xs font-medium text-emerald-700">{p.status}</p>
-            <h3 class="mt-1 font-semibold text-lg tracking-tight">{p.name}</h3>
-            <p class="text-sm text-gray-600">{p.hotel}</p>
-            <p class="font-mono-num font-semibold mt-1">Mulai {p.price}</p>
+  <!-- PAKET: 2 unggulan asimetris + link -->
+  <section class="max-w-6xl mx-auto px-4 py-12 w-full">
+    <div class="flex items-end justify-between gap-4">
+      <h2 class="font-editorial text-3xl md:text-4xl font-bold">Paket yang paling dicari</h2>
+      <a href="/paket" class="text-sm font-medium text-amber-700 underline underline-offset-4 shrink-0">Semua 15 jadwal</a>
+    </div>
+    <div class="mt-6 grid grid-cols-1 md:grid-cols-12 gap-5">
+      {packages.slice(0, 2).map((p, i) => (
+        <article class:list={['reveal', i === 0 ? 'md:col-span-7' : 'md:col-span-5']}>
+          <div class="spotlight bg-white border border-amber-600/20 rounded-[2rem] p-6 h-full">
+            <p class="text-xs font-medium text-emerald-900 bg-emerald-900/10 inline-block px-3 py-1.5 rounded-full">{p.status}</p>
+            <h3 class="mt-2 font-editorial font-bold text-2xl">{p.name}</h3>
+            <p class="text-sm text-stone-600">{p.hotel}</p>
+            <p class="font-mono-num font-semibold mt-1 text-amber-700">Mulai {p.price}</p>
           </div>
         </article>
       ))}
     </div>
-    <a href="/paket" class="mt-6 inline-block underline underline-offset-4 text-sm font-medium">Lihat semua paket + banner resmi</a>
   </section>
 
-  <section class="max-w-7xl mx-auto px-4 py-12 w-full">
-    <div class="grid grid-cols-1 md:grid-cols-12 gap-8">
-      <div class="md:col-span-5">
-        <p class="text-sm font-medium text-teal-700">Kepercayaan</p>
-        <h2 class="mt-2 text-3xl md:text-4xl tracking-tighter leading-none font-bold">Kata para jamaah</h2>
-        <div class="mt-6 space-y-4">
-          {testimonials.slice(0, 2).map((t) => (
-            <blockquote class="bg-white border border-slate-200/50 rounded-[2.5rem] p-6 text-sm">
-              <p class="text-gray-600">"{t.text}"</p>
-              <p class="mt-2 font-semibold">{t.name} <span class="font-normal text-zinc-500">— {t.role}</span></p>
-            </blockquote>
-          ))}
-        </div>
-        <a href="/testimoni" class="mt-5 inline-block underline underline-offset-4 text-sm font-medium">Semua testimoni</a>
+  <!-- LEGALITAS badge emerald + link cek izin -->
+  <section class="max-w-6xl mx-auto px-4 pb-14 w-full">
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-5">
+      <div class="md:col-span-7 bg-emerald-900 text-emerald-50 rounded-[2rem] p-8">
+        <p class="text-xs font-semibold tracking-widest uppercase text-emerald-200">Badge legalitas</p>
+        <h2 class="mt-1 font-editorial text-2xl font-bold">Izin Umroh No. 884 Tahun 2019</h2>
+        <p class="mt-2 text-sm text-emerald-100/90">Tertera pada banner paket resmi. Minta salinan SK via WA, verifikasi di simpu Kemenag.</p>
+        <a href="/cara-cek-izin" class="mt-5 inline-block bg-white text-emerald-900 px-6 py-3 rounded-full text-sm font-semibold transition duration-300 hover:-translate-y-0.5 active:scale-[0.97]">Cara cek izin sendiri</a>
       </div>
-      <div class="md:col-span-7">
-        <div class="bg-amber-50 border border-amber-200 rounded-[2.5rem] p-8 md:p-10">
-          <h2 class="font-semibold text-lg tracking-tight">Sebelum menyetor dana jutaan rupiah</h2>
-          {notes.map((n) => (<p class="mt-3 text-sm text-gray-600 border-l-2 border-teal-700 pl-3">{n}</p>))}
-          <a href="/legalitas" class="mt-5 inline-block underline underline-offset-4 text-sm font-medium">Cek legalitas kami</a>
-        </div>
+      <div class="md:col-span-5 bg-white border border-amber-600/20 rounded-[2rem] p-8">
+        <h2 class="font-editorial text-2xl font-bold">Siap konsultasi tanpa tekanan?</h2>
+        <p class="mt-2 text-sm text-stone-600">Gratis, tanpa kewajiban mendaftar.</p>
+        <a href={cta} target="_blank" rel="noopener" class="mt-5 inline-block bg-amber-600 text-white px-6 py-3 rounded-full text-sm font-medium transition duration-300 hover:-translate-y-0.5 active:scale-[0.97]">Konsultasi Gratis via WA</a>
       </div>
-    </div>
-  </section>
-
-  <section class="max-w-7xl mx-auto px-4 py-14 w-full">
-    <div class="md:pl-[12vw]">
-      <h2 class="text-3xl md:text-4xl tracking-tighter leading-none font-bold max-w-[20ch]">Siap konsultasi tanpa tekanan?</h2>
-      <p class="mt-3 text-base text-gray-600 max-w-[65ch]">Tanya program yang tersedia saat ini — gratis, tanpa kewajiban mendaftar.</p>
-      <a href={cta} target="_blank" rel="noopener" class="mt-6 inline-block bg-teal-700 text-white px-8 py-3.5 rounded-full font-medium">Konsultasi Gratis via WA</a>
     </div>
   </section>
 </BaseLayout>

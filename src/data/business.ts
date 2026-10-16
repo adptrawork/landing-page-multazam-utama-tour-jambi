@@ -21,8 +21,8 @@ export const business = {
   schemaType: 'TravelAgency',
   ctaLabel: 'Konsultasi Gratis via WA',
   ctaUrl: 'https://wa.me/62811188354?text=Halo%20admin%20Multazam%2C%20saya%20mau%20tanya%20program%20umroh%20yang%20tersedia.',
-  title: 'Multazam Tour Jambi — Umroh Mulai Rp32jt, Izin 884/2019',
-  description: 'Multazam Utama Tour (est. 1999, PT Tisaga): umroh Kautsar & Barokah mulai Rp32jt, hotel Sofwah Tower, Ajyad Makareem, izin umroh 884/2019.',
+  title: 'Umroh Kautsar & Barokah Mulai Rp32jt — Multazam Jambi, Izin 884/2019',
+  description: 'Multazam Utama Tour Jambi (PT Tisaga, est. 1999): umroh Kautsar 9–10 hari, Barokah ekonomis 12 hari, hotel Sofwah Tower & Ajyad Makareem, muthowif sesuai sunnah.',
   canonicalPath: '/',
   ogImage: '/images/multazam-umroh-series.jpg',
 };
@@ -31,6 +31,7 @@ export const navLinks = [
   { href: '/', label: 'Beranda' },
   { href: '/paket', label: 'Paket' },
   { href: '/legalitas', label: 'Legalitas' },
+  { href: '/cara-cek-izin', label: 'Cek Izin' },
   { href: '/testimoni', label: 'Testimoni' },
   { href: '/kontak', label: 'Kontak' },
 ];
