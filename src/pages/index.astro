@@ -17,42 +17,82 @@ const faqs = [
 ];
 ---
 <BaseLayout title={business.title} description={business.description} canonicalPath={business.canonicalPath} image={business.ogImage}>
-  <!-- Ref: luxury sites — 01 Hero tipografi mewah + whitespace, PPIU badge + harga mulai + CTA -->
-  <section class="max-w-7xl mx-auto px-4 w-full overflow-hidden">
-    <div class="grid grid-cols-1 md:grid-cols-12 gap-6 py-12 md:py-20">
-      <div class="md:col-span-5 md:pt-10 reveal md:pr-2 relative z-10">
-        <p class="font-arabic text-xl text-amber-700" lang="ar">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</p>
-        <p class="mt-3 inline-flex items-center gap-2 text-xs font-semibold tracking-widest uppercase text-emerald-900 bg-emerald-900/10 border border-emerald-900/25 rounded-full px-4 py-1.5">PPIU 884/2019 — amanah sejak 1999</p>
-        <h1 class="mt-4 font-editorial text-4xl md:text-6xl leading-[1.02] font-bold">Umroh tenang, dibimbing sesuai sunnah</h1>
-        <p class="mt-5 text-base text-stone-600 leading-relaxed max-w-[55ch]">PT Tisaga Multazam Utama — paket mulai <strong class="font-mono-num text-amber-700">Rp32 juta</strong>, hotel Sofwah Tower dan Ajyad Makareem, muthowif profesional.</p>
-        <div class="mt-8 flex flex-wrap gap-3">
-          <a href={cta} target="_blank" rel="noopener" class="bg-amber-600 text-white px-7 py-3.5 rounded-full font-medium min-h-[48px] inline-flex items-center transition duration-300 hover:-translate-y-0.5 active:scale-[0.97]">Konsultasi Gratis via WA</a>
-          <a href="/paket" class="border border-amber-600/40 text-amber-700 px-7 py-3.5 rounded-full font-medium min-h-[48px] inline-flex items-center transition duration-300 hover:-translate-y-0.5 active:scale-[0.97]">Lihat Paket</a>
+  <!-- Ref: "sacred architecture / arch geometry" — concentric mihrab arches, fine hairline rules, offset arch mask (inspired by mosque archways & editorial arch compositions) -->
+  <section class="hero-arch relative w-full overflow-hidden border-b border-amber-600/15" aria-labelledby="hero-heading">
+    <div class="hero-hairlines" aria-hidden="true"></div>
+
+    <div class="max-w-7xl mx-auto px-4 pt-10 md:pt-14 pb-12 md:pb-16 grid grid-cols-12 gap-6 items-end relative">
+      <!-- Copy — left aligned, no centering -->
+      <div class="col-span-12 md:col-span-6 relative z-10 reveal">
+        <div class="flex items-center gap-3">
+          <span class="hero-badge" aria-hidden="true"></span>
+          <p class="font-arabic text-lg md:text-xl leading-none text-amber-700" lang="ar">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</p>
         </div>
-        <dl class="mt-8 flex divide-x divide-amber-600/20 border-t border-amber-600/20 pt-5 text-sm">
-          <div class="pr-6"><dd class="font-mono-num font-semibold text-lg">1999</dd><dd class="text-stone-500">Berdiri</dd></div>
-          <div class="px-6"><dd class="font-mono-num font-semibold text-lg">884/19</dd><dd class="text-stone-500">Izin Umroh</dd></div>
-          <div class="pl-6"><dd class="font-mono-num font-semibold text-lg">15+</dd><dd class="text-stone-500">Jadwal</dd></div>
+
+        <!-- legalitas / izin badge line -->
+        <p class="mt-4 inline-flex items-center gap-2.5 text-[11px] font-semibold tracking-[0.18em] uppercase text-emerald-900">
+          <span class="h-px w-6 bg-emerald-900/45" aria-hidden="true"></span>
+          <span>Izin Umroh PPIU 884/2019 · amanah sejak 1999</span>
+        </p>
+
+        <h1 id="hero-heading" class="mt-4 font-editorial font-bold text-[2.4rem] leading-[1.02] sm:text-5xl md:text-[3.9rem] text-stone-900">
+          Umroh tenang,<br class="hidden sm:block" /> dibimbing <span class="text-amber-700">sesuai sunnah</span>
+        </h1>
+
+        <p class="mt-5 max-w-[52ch] text-[15px] md:text-base text-stone-600 leading-relaxed">PT Tisaga Multazam Utama — paket mulai <strong class="font-mono-num font-semibold text-amber-700">Rp32 juta</strong>, hotel Sofwah Tower dan Ajyad Makareem, muthowif profesional.</p>
+
+        <div class="mt-7 flex flex-wrap items-center gap-3">
+          <a href={cta} target="_blank" rel="noopener" class="inline-flex items-center justify-center min-h-[48px] rounded-full bg-amber-700 px-7 py-3.5 font-medium text-white transition duration-300 hover:-translate-y-0.5 hover:bg-amber-800 active:scale-[0.97]">Konsultasi Gratis via WA</a>
+          <a href="/paket" class="inline-flex items-center justify-center min-h-[48px] rounded-full border border-amber-600/40 px-7 py-3.5 font-medium text-amber-700 transition duration-300 hover:-translate-y-0.5 active:scale-[0.97]">Lihat Paket</a>
+        </div>
+
+        <dl class="mt-8 flex flex-wrap border-t border-amber-600/20 pt-5 text-sm">
+          <div class="pr-5 md:pr-6">
+            <dt class="sr-only">Berdiri</dt>
+            <dd class="font-mono-num text-lg font-semibold leading-tight">1999</dd>
+            <dd class="mt-0.5 text-xs text-stone-500">Berdiri</dd>
+          </div>
+          <div class="border-l border-amber-600/20 px-5 md:px-6">
+            <dt class="sr-only">Izin Umroh</dt>
+            <dd class="font-mono-num text-lg font-semibold leading-tight">884/19</dd>
+            <dd class="mt-0.5 text-xs text-stone-500">Izin Umroh</dd>
+          </div>
+          <div class="border-l border-amber-600/20 pl-5 md:pl-6">
+            <dt class="sr-only">Jadwal</dt>
+            <dd class="font-mono-num text-lg font-semibold leading-tight">15+</dd>
+            <dd class="mt-0.5 text-xs text-stone-500">Jadwal</dd>
+          </div>
         </dl>
       </div>
-      <div class="md:col-span-7 reveal reveal-d1 md:-ml-10">
-        <div class="overflow-hidden rounded-[2rem] border border-amber-600/20">
-          <img src="/images/multazam-umroh-series.jpg" alt="Jamaah umroh Multazam di Tanah Suci" width="1200" height="900" loading="eager" fetchpriority="high" decoding="async" class="haramain-fade haramain-slow w-full max-w-full aspect-[16/11] object-cover" />
+
+      <!-- Arch image — offset down + right on desktop -->
+      <div class="col-span-12 md:col-span-6 relative md:pt-10">
+        <div class="arch-outer reveal reveal-d1">
+          <div class="arch-media-wrap">
+            <div class="arch-frame arch-frame-2" aria-hidden="true"></div>
+            <div class="arch-frame arch-frame-1" aria-hidden="true"></div>
+            <div class="hero-arch-media">
+              <img src="/images/multazam-umroh-series.webp" alt="Jamaah umroh Multazam di Tanah Suci, dipandang melalui lengkung masjid" width="1200" height="900" loading="eager" fetchpriority="high" decoding="async" class="arch-img block h-full w-full object-cover" />
+            </div>
+          </div>
         </div>
-        <p class="mt-3 text-xs text-stone-400">Sumber: multazam.co.id (situs resmi).</p>
+        <p class="mt-4 text-[11px] leading-relaxed text-stone-500">Sumber: multazam.co.id (situs resmi).</p>
       </div>
     </div>
   </section>
 
-  <!-- Ref: Shakuro — 02 Legalitas strip -->
+  <!-- Ref: Shakuro + sacred arch — 02 Legalitas strip (hairline rules, bukan kartu) -->
   <section class="max-w-7xl mx-auto px-4 w-full">
-    <div class="bg-emerald-900 text-emerald-50 rounded-[2rem] p-6 md:p-8 md:flex md:items-center md:gap-8">
-      <div class="flex flex-wrap gap-x-8 gap-y-3 font-mono-num text-sm grow">
-        <p><span class="text-emerald-200 text-xs block tracking-widest">PPIU</span><strong>884 / 2019</strong></p>
-        <p><span class="text-emerald-200 text-xs block tracking-widest">BADAN HUKUM</span><strong>PT Tisaga</strong></p>
-        <p><span class="text-emerald-200 text-xs block tracking-widest">AKREDITASI & PIHK</span><strong>Konfirmasi WA</strong></p>
+    <div class="border-y border-emerald-900/20 py-6 md:py-8">
+      <div class="flex flex-wrap items-center gap-x-8 gap-y-4">
+        <p class="font-mono-num text-[11px] uppercase tracking-[0.2em] text-emerald-900">Legalitas &amp; izin</p>
+        <div class="flex flex-wrap items-center gap-x-8 gap-y-3 font-mono-num text-sm">
+          <p><span class="block text-[11px] tracking-widest text-emerald-900">PPIU</span><strong class="text-emerald-900">884 / 2019</strong></p>
+          <p><span class="block text-[11px] tracking-widest text-emerald-900">BADAN HUKUM</span><strong class="text-emerald-900">PT Tisaga</strong></p>
+          <p><span class="block text-[11px] tracking-widest text-emerald-900">AKREDITASI &amp; PIHK</span><strong class="text-emerald-900">Konfirmasi WA</strong></p>
+        </div>
+        <a href="/cara-cek-izin" class="inline-flex min-h-[48px] shrink-0 items-center rounded-full bg-emerald-900 px-6 py-3 text-sm font-semibold text-emerald-50 transition duration-300 hover:-translate-y-0.5 active:scale-[0.97] md:ml-auto">Cek izin sendiri</a>
       </div>
-      <a href="/cara-cek-izin" class="mt-4 md:mt-0 shrink-0 inline-flex items-center bg-white text-emerald-900 px-6 py-3 rounded-full text-sm font-semibold min-h-[48px] transition duration-300 hover:-translate-y-0.5 active:scale-[0.97]">Cek izin sendiri</a>
     </div>
   </section>
 

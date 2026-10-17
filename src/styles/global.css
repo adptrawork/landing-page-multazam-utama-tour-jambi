@@ -88,7 +88,7 @@ details.faq[open] .faq-body { grid-template-rows: 1fr; opacity: 1; }
 
 @media (prefers-reduced-motion: reduce) {
   .reveal { animation: none; }
-  .haramain-slow, .slot-reel > span, .seat-blink { animation: none; }
+  .arch-img, .haramain-slow, .slot-reel > span, .seat-blink { animation: none; }
   .skeleton { animation: none; }
   html { scroll-behavior: auto; }
 }
@@ -111,3 +111,93 @@ details.faq[open] .faq-body { grid-template-rows: 1fr; opacity: 1; }
 /* Form 48px + error */
 .field { min-height: 48px; }
 .field-error { border-color: #b91c1c !important; }
+
+/* ===== Sacred architecture / arch geometry (hero) ===== */
+
+/* Hero surface: warm ivory, never pure black */
+.hero-arch { background: linear-gradient(180deg, #fffaf2 0%, #fdfbf6 100%); }
+
+/* Fine geometric hairlines: central axis + baseline (decorative only) */
+.hero-hairlines { position: absolute; inset: 0; pointer-events: none; }
+.hero-hairlines::before {
+  content: ''; position: absolute; top: 0; bottom: 0; left: 50%; width: 1px;
+  background: linear-gradient(180deg, transparent, rgba(180,83,9,0.16) 12%, rgba(180,83,9,0.16) 88%, transparent);
+}
+.hero-hairlines::after {
+  content: ''; position: absolute; left: 0; right: 0; top: 82%; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(180,83,9,0.14), transparent);
+}
+@media (max-width: 767px) { .hero-hairlines::before { display: none; } }
+
+/* Arch-shaped emblem beside the basmalah */
+.hero-badge {
+  position: relative; flex: none;
+  width: 2.5rem; height: 2.5rem;
+  border: 1px solid rgba(180,83,9,0.5);
+  border-bottom: 0;
+  border-radius: 50% 50% 0 0 / 62% 62% 0 0;
+  opacity: 0.55;
+  pointer-events: none;
+}
+.hero-badge::before {
+  content: '';
+  position: absolute; inset: 0.5rem;
+  border: 1px solid rgba(180,83,9,0.4);
+  border-bottom: 0;
+  border-radius: inherit;
+}
+
+/* Offset arch mask for the hero image */
+.arch-media-wrap { position: relative; width: 100%; max-width: 25rem; margin-inline: auto; }
+@media (min-width: 768px) { .arch-media-wrap { margin-left: auto; margin-right: 0; } }
+
+.hero-arch-media {
+  position: relative; overflow: hidden;
+  aspect-ratio: 4 / 5;
+  border: 1px solid rgba(180,83,9,0.4);
+  border-bottom: 0;
+  border-radius: 50% 50% 0 0 / 46% 46% 0 0;
+  background: linear-gradient(180deg, #f3e8d5, #e7dcc7);
+}
+.hero-arch-media::before,
+.hero-arch-media::after {
+  content: ''; position: absolute; z-index: 2; pointer-events: none;
+  border: 1px solid rgba(180,83,9,0.32);
+  border-bottom: 0;
+  border-radius: 50% 50% 0 0 / 46% 46% 0 0;
+}
+.hero-arch-media::before { inset: 0.7rem; }
+.hero-arch-media::after { inset: 1.4rem; }
+
+/* Concentric arch frames, offset up-left for architectural depth */
+.arch-frame {
+  position: absolute; inset: 0; pointer-events: none;
+  border: 1px solid rgba(180,83,9,0.28);
+  border-bottom: 0;
+  border-radius: 50% 50% 0 0 / 46% 46% 0 0;
+}
+.arch-frame-1 { transform: translate(-0.6rem, -0.6rem); }
+.arch-frame-2 { transform: translate(-1.2rem, -1.2rem); border-color: rgba(180,83,9,0.14); }
+@media (min-width: 768px) {
+  .arch-frame-1 { transform: translate(-1rem, -1rem); }
+  .arch-frame-2 { transform: translate(-2rem, -2rem); }
+}
+
+/* Slow architectural drift inside the arch (transform only) */
+.arch-img { animation: archdrift 18s ease-in-out infinite alternate; }
+@keyframes archdrift {
+  from { transform: scale(1.02); }
+  to { transform: scale(1.1) translateY(-1.2%); }
+}
+/* Override di sini (setelah definisi) karena rule reduced-motion global di atas
+   kalah urutan dengan .arch-img di bawah — pastikan drift mati saat reduced-motion. */
+@media (prefers-reduced-motion: reduce) {
+  .arch-img { animation: none; }
+}
+
+/* Visible keyboard focus for accessibility */
+a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visible {
+  outline: 2px solid #b45309;
+  outline-offset: 3px;
+  border-radius: 0.25rem;
+}
